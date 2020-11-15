@@ -27,6 +27,18 @@
 		-->
 		<AssemblyVersion     Condition=" '' == '$(AssemblyVersion)' "    >$(Version)</AssemblyVersion>
 		<AssemblyFileVersion Condition=" '' == '$(AssemblyFileVersion)' ">$(Version)</AssemblyFileVersion>
+
+		<!--
+			These values set the version information for satellite assemblies.
+			For example, if your project contains localized resource DLL files, then those
+			satellite assemblies will be versioned based on the values of these properties,
+			even if different than the project's main build output DLL.
+			If these values are not set, then the satellite assemblies' version information
+			will reflect that of the project's main build output DLL.
+		-->
+		<Satellite_Version        Condition=" '' == '$(Satellite_Version)' "       >$(Version)</Satellite_Version>
+		<Satellite_FileVersion    Condition=" '' == '$(Satellite_FileVersion)' "   >$(Satellite_Version)</Satellite_FileVersion>
+		<Satellite_ProductVersion Condition=" '' == '$(Satellite_ProductVersion)' ">$(Satellite_Version)</Satellite_ProductVersion>
 	</PropertyGroup>
 
 

@@ -12,10 +12,18 @@
 	</ItemGroup>
 
 
-	<!-- Ensure the target is run before each build. -->
 	<PropertyGroup>
+		<!-- Include the version file for the Clean target. -->
+		<CleanDependsOn>CleanVersionFile;$(CleanDependsOn)</CleanDependsOn>
+
+		<!-- Ensure the target is run as part of each Build. -->
 		<BuildDependsOn>GenerateVersionFile;$(BuildDependsOn)</BuildDependsOn>
 	</PropertyGroup>
+
+
+	<Target Name="CleanVersionFile">
+		<Delete Files="@(VersionFile)" />
+	</Target>
 
 
 	<Target Name="GenerateVersionFile"

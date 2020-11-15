@@ -18,6 +18,15 @@
 
 		<!-- Ensure the target is run as part of each Build. -->
 		<BuildDependsOn>GenerateVersionFile;$(BuildDependsOn)</BuildDependsOn>
+
+		<!--
+			By the time the Directory.Build.targets file is imported, the Version property
+			will already be set, either by the command line argument, the default value
+			within Directory.Build.props, or the default value of "1.0.0.0" assigned
+			by MSBuild when Version is empty.
+		-->
+		<AssemblyVersion     Condition=" '' == '$(AssemblyVersion)' "    >$(Version)</AssemblyVersion>
+		<AssemblyFileVersion Condition=" '' == '$(AssemblyFileVersion)' ">$(Version)</AssemblyFileVersion>
 	</PropertyGroup>
 
 
@@ -31,11 +40,11 @@
 
 		<!-- These assembly attributes will be written to the version file. -->
 		<ItemGroup>
-			<AssemblyAttributes Include="AssemblyVersion">
-				<_Parameter1>$(Version)</_Parameter1>
+			<AssemblyAttributes Include="AssemblyVersion"     Condition=" '' != '$(AssemblyVersion)' ">
+				<_Parameter1>$(AssemblyVersion)</_Parameter1>
 			</AssemblyAttributes>
-			<AssemblyAttributes Include="AssemblyFileVersion">
-				<_Parameter1>$(Version)</_Parameter1>
+			<AssemblyAttributes Include="AssemblyFileVersion" Condition=" '' != '$(AssemblyFileVersion)' ">
+				<_Parameter1>$(AssemblyFileVersion)</_Parameter1>
 			</AssemblyAttributes>
 		</ItemGroup>
 
